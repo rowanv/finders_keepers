@@ -7,4 +7,4 @@ class Location(models.Model):
     address = models.CharField(max_length=400)
 
     def __str__(self):
-        return self.lat + ', ' + self.lon + ' ' + self.address
+        return str(self.lat) + ', ' + str(self.lon) + ' - ' + self.address

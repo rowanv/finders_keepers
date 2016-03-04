@@ -24,10 +24,12 @@ def edit_location(request):
     '''
     '''
     if request.is_ajax():
-        location_data = json.loads(request.body.decode('utf-8'))
+        print(request.body)
+        print(request.POST['lat'])
         new_location = Location(
-            lat=location_data['lat'],
-            lon=location_data['lon'],
-            address=location_data['address'])
+            # Type conversion here to avoid utf-8 error
+            lat=float(request.POST['lat']),
+            lon=float(request.POST['lon']),
+            address=request.POST['address'])
         new_location.save()
         return HttpResponse('you added a Location')

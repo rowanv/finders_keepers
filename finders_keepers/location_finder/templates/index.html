@@ -122,8 +122,8 @@
                 type:'POST',
                 url:'/content/edit_location/',
                 data: {
-                  'lat': lat,
-                  'lon': lng,
+                  'lat': String(lat),
+                  'lon': String(lng),
                   'address': results[1].formatted_address,
                   csrfmiddlewaretoken: '{{ csrf_token }}',
                 },
