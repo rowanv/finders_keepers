@@ -77,9 +77,8 @@
           console.log(latLngStr);
           map.panTo(point);
           console.log('moved marker');
-          var div = document.createElement('div');
-          div.innerHTML = latLngStr ;
-          document.getElementsByTagName('body')[0].appendChild(div);
+
+
           geocodeLatLng(geocoder, map, infowindow, event.latLng.lat().toFixed(4), event.latLng.lng().toFixed(4));
 
         });
@@ -131,6 +130,10 @@
                   $('#message').html('<h2>Address submitted!</h2>')
                 },
               });
+              // and create div with info
+              var div = document.createElement('div');
+              div.innerHTML = String(lat) + ', ' + String(lng) + ' - ' + results[1].formatted_address;
+              document.getElementsByTagName('body')[0].appendChild(div);
             } else {
               window.alert('No results found');
             }
