@@ -41,6 +41,8 @@
         width: 225px;
       }
     </style>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js'></script>
   </head>
   <body>
     <!--div id="floating-panel">
@@ -50,6 +52,7 @@
       <input id="submit" type="button" value="Reverse Geocode">
     </div-->
     <div id="map"></div>
+    <div id='message'></div>
     <script>
       var marker;
       var latLngStr;
@@ -83,6 +86,12 @@
 
       }
 
+      var csrftoken = $.cookie('csrftoken');
+
+
+
+
+
       function geocodeLatLng(geocoder, map, infowindow, lat, lng) {
         //var input = document.getElementById('latlng').value;
         //var latlngStr = input.split(',', 2);
@@ -104,6 +113,24 @@
               infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker);
               console.log(results[1]);
+              // send ajax request
+              // Set CSRF tokens
+
+
+
+              $.ajax({
+                type:'POST',
+                url:'/content/edit_location/',
+                data: {
+                  'lat': lat,
+                  'lon': lng,
+                  'address': results[1].formatted_address,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function() {
+                  $('#message').html('<h2>Address submitted!</h2>')
+                },
+              });
             } else {
               window.alert('No results found');
             }
@@ -113,8 +140,11 @@
         });
       }
     </script>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key={{ context.api_key }}&callback=initMap">
     </script>
+
+
   </body>
 </html>

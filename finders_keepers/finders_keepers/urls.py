@@ -21,4 +21,6 @@ from location_finder import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
+    url(r'^content/edit_location/$', views.edit_location,
+        name='edit_locations'),
 ]
