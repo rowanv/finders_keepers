@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    '''
+    Display main app.
+
+    **Template**:
+    :template:`index.html`
+    '''
+    return render(request, 'index.html')
