@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import yaml
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -101,3 +102,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Config API key files
+config_keys_path = os.path.join(BASE_DIR, 'config.yml')
+with open(config_keys_path, 'r') as ymlfile:
+    cfg = yaml.load(ymlfile)
+
+API_KEY = cfg['api_key']

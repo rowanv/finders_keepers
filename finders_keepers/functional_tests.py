@@ -1,3 +1,9 @@
+'''
+To run functional tests:
+python3 manage.py test functional_tests
+'''
+
+
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
