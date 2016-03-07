@@ -11,6 +11,21 @@ import unittest
 
 class NewVisitorTest(unittest.TestCase):
 
+
+    @classmethod
+    def setUpClass(cls):
+        for arg in sys.argv:
+            if 'liveserver' in arg:
+                cls.server_url = 'http://' + arg.split('=')[1]
+                return
+        super().setUpClass()
+        cls.server_url = cls.live_server_url
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls.server_url == cls.live_server_url:
+            super().tearDownClass()
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -20,11 +35,20 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_view_home_page(self):
         # Come to check out portfolio home page
-        self.browser.get('http://localhost:8000/')
+        self.browser.get(self.server_url)
 
         #see that the title mentiosn portfolio
         self.assertIn('Finders Keepers', self.browser.title)
 
-        self.fail('Finish the test')
+        # And the basic elements are rendered
+        self.browser.find_element_by_id('map')
+        self.browser.find_element_by_id('message')
+        self.browser.find_element_by_id('fusion_table')
 
-        print('hi')
+    def test_layout_and_styling(self):
+        self.browser.get(self.server_url)
+
+        h1 = self.browser.find_element_by_tag_name('h1')
+
+        self.assertEqual(navbar.value_of_css_property(
+            'color'), 'rgba(51, 51, 51, 1)')
