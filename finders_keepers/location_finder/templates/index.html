@@ -3,58 +3,36 @@
   <head>
     <meta charset="UTF-8">
     <title>Finders Keepers</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 50%;
-        width: 50%;
-      }
-      #floating-panel {
-        position: absolute;
-        top: 10px;
-        left: 25%;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
-      #floating-panel {
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        margin-left: -180px;
-        width: 350px;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-      }
-      #latlng {
-        width: 225px;
-      }
-    </style>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-            <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js'></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Bootstrap optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link href="static/css/styles.css" rel="stylesheet">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js'></script>
   </head>
   <body>
-    <!--div id="floating-panel">
-      <input id="latlng" type="text" value="40.714224,-73.961452">
-        <input id="hidLat" name="hidLat" type="hidden" value="">
-        <input id="hidLong" name="hidLong" type="hidden" value="">
-      <input id="submit" type="button" value="Reverse Geocode">
-    </div-->
-    <div id="map"></div>
-    <div id='message'></div>
+
+<div class='container-full'>
+  <div class='row'>
+    <div class="col-lg-12 text-center v-center">
+    <h1 >Finders Keepers</h1>
+    <br>
+    <br>
+    <br>
+
+
+    <div class='row center-block' id="map"></div>
+
+    <div class='center-block' id='message'></div>
+
     <!-- Fusion Table -->
-    <iframe width="500" height="300" scrolling="yes" frameborder="no" src="https://www.google.com/fusiontables/embedviz?viz=GVIZ&amp;t=TABLE&amp;q=select+col0%2C+col1%2C+col2+from+1fNXVMeNJr_l31N7ohrGpS91Hge4Q0Pn1fuRCDOf0&amp;containerId=googft-gviz-canvas"></iframe>
+    <br>
+    <br>
+    <iframe class='center-block text-center' id='fusion_table' width="500" height="300" scrolling="yes" frameborder="no" src="https://www.google.com/fusiontables/embedviz?viz=GVIZ&amp;t=TABLE&amp;q=select+col0%2C+col1%2C+col2+from+1fNXVMeNJr_l31N7ohrGpS91Hge4Q0Pn1fuRCDOf0&amp;containerId=googft-gviz-canvas"></iframe>
     <script>
       var marker;
       var latLngStr;
@@ -145,11 +123,15 @@
         });
       }
     </script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key={{ context.api_key }}&callback=initMap">
     </script>
-
+  </div>
+  </div>
+  </div>
 
   </body>
 </html>
