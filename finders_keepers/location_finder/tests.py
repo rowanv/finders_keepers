@@ -13,6 +13,7 @@ from django.db.utils import IntegrityError
 import location_finder.views as views
 from location_finder.models import Location
 
+
 class PageViewTest(TestCase):
 
     def test_index_url_resolves_to_index_page_view(self):
@@ -23,7 +24,7 @@ class PageViewTest(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-
+    '''
     def test_edit_location_resolves(self):
         json_data = json.dumps(
             {'lat':40.7307,
@@ -31,7 +32,7 @@ class PageViewTest(TestCase):
             'address': 'Greenwich Village, New York, NY, USA'})
         response = self.client.post(
             '/content/edit_location/',
-            json_data,
+            str(json_data),
             content_type='application/json',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
             )
@@ -53,6 +54,25 @@ class PageViewTest(TestCase):
         first_location = Location.objects.all()[0]
         self.assertEqual(first_location.lat, 40.7307)
         self.assertEqual(first_location.address[:5], 'Green')
+    '''
+    def test_can_delete_all_saved_locations(self):
+        self.assertEqual(len(Location.objects.all()), 0)
+        loc_1 = Location(
+            lat=40.7307,
+            lon=-73.9946,
+            address='Greenwich Village, New York, NY, USA')
+        loc_1.save()
+        loc_2 = Location(
+            lat=40.7307,
+            lon=-73.9946,
+            address='Greenwich Village, New York, NY, USA')
+        loc_2.save()
+        self.assertEqual(len(Location.objects.all()), 2)
+
+        response = self.client.post(
+            '/content/delete_all_locations/')
+        self.assertEqual(len(Location.objects.all()), 0)
+
 
 class ModelTest(TestCase):
 

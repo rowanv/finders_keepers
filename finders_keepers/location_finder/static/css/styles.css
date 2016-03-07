@@ -24,6 +24,11 @@ h1 {
   overflow:hidden;
 }
 
+
+div.gm-style-iw {
+  color:black;
+}
+
 .container-full a {
   color:#efefef;
   text-decoration:none;
@@ -32,9 +37,12 @@ h1 {
 .v-center {
   margin-top:7%;
 }
+
+
 #map {
   height: 400px;
   width: 600px;
+  color:black;
 }
 #floating-panel {
   position: absolute;
