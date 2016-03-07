@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^content/edit_location/$', views.edit_location,
         name='edit_locations'),
+    url(r'^content/delete_all_locations/$',
+        views.delete_all_locations, name='delete_all_locations')
 ]

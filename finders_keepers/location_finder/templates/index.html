@@ -29,6 +29,11 @@
 
     <div class='center-block' id='message'></div>
 
+    <form action="/content/delete_all_locations/" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Delete All Saved Locations" class="btn btn-primary">
+    </form>
+    {{ all_locations }}
     <!-- Fusion Table -->
     <br>
     <br>
@@ -127,7 +132,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{ context.api_key }}&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap">
     </script>
   </div>
   </div>

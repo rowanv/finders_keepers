@@ -3,13 +3,12 @@ To run functional tests:
 python3 manage.py test functional_tests
 '''
 
-
-from django.test import LiveServerTestCase
+import sys
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
 
     @classmethod
@@ -50,5 +49,5 @@ class NewVisitorTest(unittest.TestCase):
 
         h1 = self.browser.find_element_by_tag_name('h1')
 
-        self.assertEqual(navbar.value_of_css_property(
-            'color'), 'rgba(51, 51, 51, 1)')
+        self.assertEqual(h1.value_of_css_property(
+            'color'), 'rgba(255, 255, 255, 1)')

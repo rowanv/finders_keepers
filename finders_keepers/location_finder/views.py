@@ -1,5 +1,5 @@
 import yaml
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 import json
@@ -18,13 +18,17 @@ def index(request):
     **Template**:
     :template:`index.html`
     '''
-    return render(request, 'index.html', {'api_key': API_KEY})
+    print(Location.objects.all())
+    return render(request, 'index.html',
+        {'api_key': API_KEY,
+        'all_locations': Location.objects.all()})
 
 def edit_location(request):
     '''
     '''
     if request.is_ajax():
         print(request.body)
+        print(dir(request))
         print(request.POST['lat'])
         new_location = Location(
             # Type conversion here to avoid utf-8 error
@@ -33,3 +37,10 @@ def edit_location(request):
             address=request.POST['address'])
         new_location.save()
         return HttpResponse('you added a Location')
+
+def delete_all_locations(request):
+    '''
+    '''
+    if request.method == 'POST':
+        Location.objects.all().delete()
+        return redirect('index')
