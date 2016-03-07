@@ -103,6 +103,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
+
 # Config API key files
 config_keys_path = os.path.join(BASE_DIR, 'config.yml')
 with open(config_keys_path, 'r') as ymlfile:
