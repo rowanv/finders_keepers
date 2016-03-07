@@ -23,23 +23,32 @@
     <br>
     <br>
     <br>
+    <div class='row'>
+      <div class='col-md-3'></div>
+    <p class='col-md-6'>This app finds locations, and if they have a valid address, it keeps them! To get started, click on a location on the map. If you've chosen a location that has a valid address, you'll see the address saved below the map and a marker will appear at your chosen spot.</p>
+    <div class='col-md-3'></div>
+    </div>
+    <br>
 
 
     <div class='row center-block' id="map"></div>
 
     <div class='center-block' id='message'></div>
 
+    <div id='addresses'></div>
+    <br>
     <form action="/content/delete_all_locations/" method="post">
       {% csrf_token %}
       <input type="submit" value="Delete All Saved Locations" class="btn btn-primary">
     </form>
-    {{ all_locations }}
+
     <!-- Fusion Table -->
     <br>
     <br>
     <iframe class='center-block text-center' id='fusion_table' width="500" height="300" scrolling="yes" frameborder="no" src="https://www.google.com/fusiontables/embedviz?viz=GVIZ&amp;t=TABLE&amp;q=select+col0%2C+col1%2C+col2+from+1fNXVMeNJr_l31N7ohrGpS91Hge4Q0Pn1fuRCDOf0&amp;containerId=googft-gviz-canvas"></iframe>
+    {{ all_locations }}
     <script>
-      var marker;
+      //var marker;
       var latLngStr;
       var latLngGeoCode;
       function initMap() {
@@ -52,16 +61,17 @@
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
 
-        marker = new google.maps.Marker({
-          map: map,
-          draggable: true,
-          position: latlng
-        });
-        google.maps.event.addListener(marker, 'dragend', function (event) { var point = marker.getPosition();
+        //marker = new google.maps.Marker({
+        //  map: map,
+        //  draggable: true,
+        //  position: latlng
+        //});
+        google.maps.event.addListener(map, 'click', function (event) {
+          //var point = marker.getPosition();
           var latLngStr = event.latLng.lat().toFixed(4) + ', ' + event.latLng.lng().toFixed(4);
           console.log(latLngStr);
-          map.panTo(point);
-          console.log('moved marker');
+        //  map.panTo(point);
+          console.log('click happened');
 
 
           geocodeLatLng(geocoder, map, infowindow, event.latLng.lat().toFixed(4), event.latLng.lng().toFixed(4));
@@ -89,10 +99,10 @@
           if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
               //map.setZoom(11);
-              //var marker = new google.maps.Marker({
-              //  position: latlng,
-              //  map: map
-              //});
+              var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat,lng),
+                map: map
+              });
               console.log(results[1]);
               infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker);
@@ -118,7 +128,7 @@
               // and create div with info
               var div = document.createElement('div');
               div.innerHTML = String(lat) + ', ' + String(lng) + ' - ' + results[1].formatted_address;
-              document.getElementsByTagName('body')[0].appendChild(div);
+              document.getElementById('addresses').appendChild(div);
             } else {
               window.alert('No results found');
             }
