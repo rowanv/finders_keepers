@@ -24,7 +24,7 @@ class PageViewTest(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-    '''
+
     def test_edit_location_resolves(self):
         json_data = json.dumps(
             {'lat':40.7307,
@@ -32,7 +32,7 @@ class PageViewTest(TestCase):
             'address': 'Greenwich Village, New York, NY, USA'})
         response = self.client.post(
             '/content/edit_location/',
-            str(json_data),
+            data=str(json_data),
             content_type='application/json',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest',
             )
@@ -54,7 +54,7 @@ class PageViewTest(TestCase):
         first_location = Location.objects.all()[0]
         self.assertEqual(first_location.lat, 40.7307)
         self.assertEqual(first_location.address[:5], 'Green')
-    '''
+
 
     def test_can_delete_all_saved_locations(self):
         self.assertEqual(len(Location.objects.all()), 0)
@@ -98,3 +98,5 @@ class ModelTest(TestCase):
         with self.assertRaises(IntegrityError):
             location.save()
             location.full_clean()
+
+
