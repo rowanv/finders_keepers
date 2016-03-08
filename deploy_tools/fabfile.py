@@ -28,13 +28,13 @@ def _get_latest_source(source_folder):
     run('cd %s && git reset --hard %s' % (source_folder, current_commit))  #6
 
 def _update_settings(source_folder, site_name):
-    settings_path = source_folder + '/finders_keepers/finders_keepers/settings.py'
+    settings_path = source_folder + '/finders_keepers/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")  #1
     sed(settings_path,
         'ALLOWED_HOSTS =.+$',
         'ALLOWED_HOSTS = ["%s"]' % (site_name,)  #2
     )
-    secret_key_file = source_folder + '/finders_keepers/finders_keepers/secret_key.py'
+    secret_key_file = source_folder + '/finders_keepers/secret_key.py'
     if not exists(secret_key_file):  #3
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
@@ -42,9 +42,9 @@ def _update_settings(source_folder, site_name):
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
 def _pass_api_keys(source_folder):
-    api_keys_path = source_folder + '/finders_keepers/finders_keepers/config.yml'
+    api_keys_path = source_folder + 'config.yml'
     if not exists(api_keys_path):
-        put('../finders_keepers/config.yml', source_folder + '/finders_keepers/')
+        put('../config.yml', source_folder )
 
 def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
@@ -55,12 +55,12 @@ def _update_virtualenv(source_folder):
     ))
 
 def _update_static_files(source_folder):
-    run('cd %s/finders_keepers/ && ../../virtualenv/bin/python3 manage.py collectstatic --noinput' % ( # 1
+    run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput' % ( # 1
         source_folder,
     ))
 
 def _update_database(source_folder):
-    run('cd %s/finders_keepers/ && ../../virtualenv/bin/python3 manage.py migrate --noinput' % (
+    run('cd %s && ../virtualenv/bin/python3 manage.py migrate --noinput' % (
         source_folder,
     ))
 
