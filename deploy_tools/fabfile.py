@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run
+from fabric.api import env, local, run, put
 import random
 
 REPO_URL = 'https://github.com/rowanv/finders_keepers.git'  #1
@@ -10,6 +10,7 @@ def deploy():
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.host)
+    _pass_api_keys(source_folder)
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
@@ -40,6 +41,11 @@ def _update_settings(source_folder, site_name):
         append(secret_key_file, "SECRET_KEY = '%s'" % (key,))
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
+def _pass_api_keys(source_folder):
+    api_keys_path = source_folder + '/finders_keepers/finders_keepers/config.yml'
+    if not exists(api_keys_path):
+        put('../finders_keepers/config.yml', source_folder + '/finders_keepers/')
+
 def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'): #1
@@ -49,12 +55,12 @@ def _update_virtualenv(source_folder):
     ))
 
 def _update_static_files(source_folder):
-    run('cd %s && ../virtualenv/bin/python3 finders_keepers/manage.py collectstatic --noinput' % ( # 1
+    run('cd %s/finders_keepers/ && ../../virtualenv/bin/python3 manage.py collectstatic --noinput' % ( # 1
         source_folder,
     ))
 
 def _update_database(source_folder):
-    run('cd %s && ../../virtualenv/bin/python3 manage.py migrate --noinput' % (
+    run('cd %s/finders_keepers/ && ../../virtualenv/bin/python3 manage.py migrate --noinput' % (
         source_folder,
     ))
 
