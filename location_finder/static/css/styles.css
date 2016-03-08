@@ -41,7 +41,7 @@ div.gm-style-iw {
 
 #map {
   height: 400px;
-  width: 600px;
+  width: 100%;
   color:black;
 }
 #floating-panel {
