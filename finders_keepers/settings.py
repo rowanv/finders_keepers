@@ -111,6 +111,3 @@ with open(config_keys_path, 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
 API_KEY = cfg['api_key']
-
-FUSION_TABLES_CLIENT_ID = cfg['fusion_tables_client_id']
-FUSION_TABLES_CLIENT_SECRET = cfg['fusion_tables_client_secret']

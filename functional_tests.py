@@ -42,7 +42,6 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # And the basic elements are rendered
         self.browser.find_element_by_id('map')
         self.browser.find_element_by_id('message')
-        self.browser.find_element_by_id('fusion_table')
 
     def test_layout_and_styling(self):
         self.browser.get(self.server_url)
