@@ -55,7 +55,7 @@ sed "s/SITENAME/finderskeepers.rowanv.com/g" \
     /etc/init/gunicorn-finderskeepers.rowanv.com.conf
 
 sudo service nginx reload
-sudo start gunicorn-finderskeepersrowanv.com
+sudo start gunicorn-finderskeepers.rowanv.com
 # or sudo restart gunicorn-finderskeepers.rowanv.com
 
 ../virtualenv/bin/python3 finders_keepers/manage.py makemigrations
