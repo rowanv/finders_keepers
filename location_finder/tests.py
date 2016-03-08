@@ -55,6 +55,7 @@ class PageViewTest(TestCase):
         self.assertEqual(first_location.lat, 40.7307)
         self.assertEqual(first_location.address[:5], 'Green')
     '''
+
     def test_can_delete_all_saved_locations(self):
         self.assertEqual(len(Location.objects.all()), 0)
         loc_1 = Location(

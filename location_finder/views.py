@@ -20,8 +20,9 @@ def index(request):
     '''
     print(Location.objects.all())
     return render(request, 'index.html',
-        {'api_key': API_KEY,
-        'all_locations': Location.objects.all()})
+                  {'api_key': API_KEY,
+                   'all_locations': Location.objects.all()})
+
 
 def edit_location(request):
     '''
@@ -37,6 +38,7 @@ def edit_location(request):
             address=request.POST['address'])
         new_location.save()
         return HttpResponse('you added a Location')
+
 
 def delete_all_locations(request):
     '''

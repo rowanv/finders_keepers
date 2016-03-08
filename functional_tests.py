@@ -8,8 +8,8 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-class NewVisitorTest(StaticLiveServerTestCase):
 
+class NewVisitorTest(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -36,7 +36,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # Come to check out portfolio home page
         self.browser.get(self.server_url)
 
-        #see that the title mentiosn portfolio
+        # see that the title mentiosn portfolio
         self.assertIn('Finders Keepers', self.browser.title)
 
         # And the basic elements are rendered
